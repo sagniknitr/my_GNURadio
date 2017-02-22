@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<block>
+  <name>ED</name>
+  <key>cognitive_radio_ED</key>
+  <category>cognitive_radio</category>
+  <import>import cognitive_radio</import>
+  <make>cognitive_radio.ED($samplesperstream, $noisevar, $(
+prob_false_alarm.fcn), $fftsize, $streams)</make>
+
+<callback>set_noisevar($noisevar)</callback>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+<param>
+<name>Samples per channel (subband)</name>
+<key>samplesperstream</key>
+<value>128</value>
+<type>int</type>
+</param>
+
+<sink>
+<name>in</name>
+<type>complex</type>
+<vlen>$fftsize</vlen>
+</sink>
+<source>
+<name>bin</name>
+<type>short</type>
+<vlen>$streams</vlen>
+</source>
+
+ </block>
