@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Fri Dec  2 10:51:16 2016
+# Generated: Tue Feb 28 22:24:04 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -39,7 +39,7 @@ class top_block(grc_wxgui.top_block_gui):
         # Variables
         ##################################################
         self.variable_0 = variable_0 = 0
-        self.samp_rate = samp_rate = 32000
+        self.samp_rate = samp_rate = 1e6
         self.delay = delay = 0
         self.channel_freq = channel_freq = 790e6
         self.center_freq = center_freq = 790e6
@@ -47,32 +47,9 @@ class top_block(grc_wxgui.top_block_gui):
         ##################################################
         # Blocks
         ##################################################
-        _center_freq_sizer = wx.BoxSizer(wx.VERTICAL)
-        self._center_freq_text_box = forms.text_box(
-        	parent=self.GetWin(),
-        	sizer=_center_freq_sizer,
-        	value=self.center_freq,
-        	callback=self.set_center_freq,
-        	label='center_freq',
-        	converter=forms.float_converter(),
-        	proportion=0,
-        )
-        self._center_freq_slider = forms.slider(
-        	parent=self.GetWin(),
-        	sizer=_center_freq_sizer,
-        	value=self.center_freq,
-        	callback=self.set_center_freq,
-        	minimum=780e6,
-        	maximum=3000e6,
-        	num_steps=1000,
-        	style=wx.SL_HORIZONTAL,
-        	cast=float,
-        	proportion=1,
-        )
-        self.Add(_center_freq_sizer)
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.osmosdr_source_0.set_sample_rate(samp_rate)
-        self.osmosdr_source_0.set_center_freq(center_freq, 0)
+        self.osmosdr_source_0.set_center_freq(400e6, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
@@ -87,7 +64,7 @@ class top_block(grc_wxgui.top_block_gui):
         	self.GetWin(),
         	title="Fast AutoCorrelation",
         	sample_rate=samp_rate,
-        	baseband_freq=0,
+        	baseband_freq=400e6,
                 y_per_div=10,
         	ref_level=50,
         	fac_size=512,
@@ -143,6 +120,29 @@ class top_block(grc_wxgui.top_block_gui):
         	proportion=1,
         )
         self.Add(_channel_freq_sizer)
+        _center_freq_sizer = wx.BoxSizer(wx.VERTICAL)
+        self._center_freq_text_box = forms.text_box(
+        	parent=self.GetWin(),
+        	sizer=_center_freq_sizer,
+        	value=self.center_freq,
+        	callback=self.set_center_freq,
+        	label='center_freq',
+        	converter=forms.float_converter(),
+        	proportion=0,
+        )
+        self._center_freq_slider = forms.slider(
+        	parent=self.GetWin(),
+        	sizer=_center_freq_sizer,
+        	value=self.center_freq,
+        	callback=self.set_center_freq,
+        	minimum=780e6,
+        	maximum=3000e6,
+        	num_steps=1000,
+        	style=wx.SL_HORIZONTAL,
+        	cast=float,
+        	proportion=1,
+        )
+        self.Add(_center_freq_sizer)
 
         ##################################################
         # Connections
@@ -186,7 +186,6 @@ class top_block(grc_wxgui.top_block_gui):
         self.center_freq = center_freq
         self._center_freq_slider.set_value(self.center_freq)
         self._center_freq_text_box.set_value(self.center_freq)
-        self.osmosdr_source_0.set_center_freq(self.center_freq, 0)
 
 
 def main(top_block_cls=top_block, options=None):
