@@ -7,12 +7,12 @@ An OOT module for Energy detection in cognitive radio.Soon will include eigenval
 -> Clone the Repository.
 ->On Linux terminal - cd /YOUR_PATH/my_GNURadio/gr-cognitive_radio
 -> Run the commands as follows :
-    mkdir build
-    cd build
-    cmake ../
-    make
-    sudo make install
-    sudo ldconfig
+    mkdir build__
+    cd build__
+    cmake ../__
+    make__
+    sudo make install__
+    sudo ldconfig__
  
 
 ## License
